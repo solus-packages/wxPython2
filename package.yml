@@ -1,0 +1,43 @@
+name       : wxPython2
+version    : 2.8.12.1
+release    : 1
+source     :
+    - http://netix.dl.sourceforge.net/project/wxpython/wxPython/2.8.12.1/wxPython-src-2.8.12.1.tar.bz2 : 1f3f153d9f1504c6ce2d2c4b23e940b8f58b81f4cba35cda1a5bb31142243cd0
+license    : 
+    - WXwindows
+    - LGPL-2.0
+summary    : A wxWidgets GUI toolkit for Python (legacy)
+description: |
+    A wxWidgets GUI toolkit for Python (legacy)
+builddeps  :
+    - pkgconfig(glu)
+    - pkgconfig(gtk+-2.0)
+    - pkgconfig(libnotify)
+    - pkgconfig(libpng)
+    - pkgconfig(libtiff-4)
+    - pkgconfig(sdl2)
+    - pkgconfig(sm)
+    - pkgconfig(webkit2gtk-4.0)
+    - libjpeg-turbo-devel
+    - wxwidgets2.8-devel
+rundeps    :
+    - wxwidgets2.8
+setup      : |
+    %patch -p1 < $pkgfiles/wxGTK-collision.patch
+    find . -type f -exec sed -i 's/env python/env python2/' {} \;
+    %configure \
+        --disable-optimize \
+        --disable-precomp-headers \
+        --disable-static \
+        --enable-graphics_ctx \
+        --enable-mediactrl \
+        --enable-unicode \
+        --with-gtk=2
+build      : |
+    cd wxPython
+    python2 setup.py WXPORT=gtk2 UNICODE=1 WX_CONFIG=/usr/bin/wx-config-2.8 build
+install    : |
+    cd wxPython
+    python2 setup.py WXPORT=gtk2 UNICODE=1 WX_CONFIG=/usr/bin/wx-config-2.8 install --root="$installdir"
+    rm -rf $installdir/usr/bin
+    rm $installdir/usr/lib/python2.7/site-packages/{wx.pth,wxversion.py*}
