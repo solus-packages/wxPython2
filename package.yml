@@ -1,9 +1,9 @@
 name       : wxPython2
 version    : 2.8.12.1
-release    : 2
+release    : 3
 source     :
     - http://netix.dl.sourceforge.net/project/wxpython/wxPython/2.8.12.1/wxPython-src-2.8.12.1.tar.bz2 : 1f3f153d9f1504c6ce2d2c4b23e940b8f58b81f4cba35cda1a5bb31142243cd0
-license    : 
+license    :
     - WXwindows
     - LGPL-2.0
 summary    : A wxWidgets GUI toolkit for Python (legacy)
